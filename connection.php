@@ -1,8 +1,8 @@
 <?php
-// $mysql_hostname = "wings.cfmvtqab0vht.us-east-1.rds.amazonaws.com";
-// $mysql_user = "admin";
-// $mysql_password = "lpw3518739";
-// $mysql_database = "wings";
+// $mysql_hostname = "";
+// $mysql_user = "";
+// $mysql_password = "";
+// $mysql_database = "";
 // Include AWS Parameter Store values
 include('get-parameters.php');
 
