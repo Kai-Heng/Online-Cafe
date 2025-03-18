@@ -1,55 +1,77 @@
-# **Nana Cafe - Online Ordering System**
-A simple **PHP-based cafe ordering system** that allows customers to place orders online. This project is designed to run on **AWS EC2** with a **MariaDB / AWS RDS MySQL database** and uses **Amazon S3 for image storage**.
+Here is the modified **README.md** incorporating all your AWS services, setup instructions, and improvements.
+
+---
+
+# **Nana Cafe - Cloud-Based Online Ordering System**
+A **scalable, high-availability café ordering system** running on **AWS Cloud** with **EC2, RDS, Auto Scaling, Load Balancer, S3, Systems Manager (SSM), WAF, and CloudWatch**.
 
 ---
 
 ## **📌 Features**
-- **User Registration & Login** (Secure password hashing)
-- **Admin Panel** (Manage orders and users)
-- **Online Ordering System** (Customers select products and confirm orders)
-- **AWS RDS Integration** (Database hosted on Amazon RDS)
-- **AWS S3 Integration** (Images stored in S3)
+- **User Authentication** (Registration, Login with hashed passwords)
+- **Online Ordering System** (Customers place orders)
+- **Admin Panel** (Manage users and orders)
+- **AWS RDS MySQL** (Centralized, secure database)
+- **AWS S3** (Static file & image storage)
+- **Auto Scaling** (Dynamically adjusts EC2 instances)
+- **Application Load Balancer** (Traffic distribution)
+- **AWS WAF (Web ACL)** (Security against attacks)
+- **AWS CloudWatch** (Monitoring & Log Analytics)
 
 ---
 
 ## **🚀 Tech Stack**
-- **Frontend:** HTML, CSS, JavaScript, jQuery
-- **Backend:** PHP, MySQL/MariaDB
-- **Database:** MariaDB (Local) / AWS RDS (Cloud)
-- **Storage:** AWS S3 (For storing product images)
-- **Cloud Services:** AWS EC2, AWS RDS, AWS Systems Manager (SSM) Parameter Store
+- **Frontend:** HTML, CSS, JavaScript, jQuery  
+- **Backend:** PHP, MySQL (AWS RDS)  
+- **Storage:** Amazon S3  
+- **Cloud Services:** AWS EC2, RDS, ALB, Auto Scaling, SSM, CloudWatch, WAF  
 
 ---
 
 ## **📂 Project Structure**
 ```
-/nana-cafe
-│── /DATABASE             # Contains SQL dump for local setup
-│── /images               # Local product images (Migrated to S3)
+/online-cafe
+│── /DATABASE             # SQL schema (migrated to AWS RDS)
+│── /images               # Stored in Amazon S3
 │── /src                  # JavaScript & Facebox modal library
 │── /css                  # Stylesheets
 │── /lib                  # jQuery dependencies
 │── /febe                 # Additional frontend assets
-│── index.php             # Landing page
+│── index.php             # Homepage
 │── admin.php             # Admin dashboard
-│── connection.php        # Database connection
-│── get-parameters.php    # AWS SSM Parameter Store integration
-│── order.php             # Order management
-│── confirm.php           # Order confirmation logic
-│── loginindex.php        # User login page
-│── register.php          # User registration page
-│── addmem.php            # Backend script for user signup
-│── logout.php            # User logout script
+│── connection.php        # Database connection (SSM-integrated)
+│── get-parameters.php    # Fetch credentials from AWS Systems Manager
+│── order.php             # Order processing
+│── confirm.php           # Order confirmation
+│── loginindex.php        # Login page
+│── register.php          # User signup
+│── addmem.php            # Store new user details
+│── logout.php            # Session logout
 │── README.md             # Project documentation
 ```
 
 ---
 
-## **🔧 Local Development Setup (MariaDB)**
+## **🌍 AWS Cloud Setup**
+### **Architecture Diagram**
+```
+Client → Application Load Balancer (ALB) → Auto Scaling EC2 Instances → RDS MySQL  
+                         ↘ S3 (Images & Static Files)  
+                         ↘ Systems Manager (Secure Credentials)  
+                         ↘ CloudWatch (Monitoring & Logging)  
+                         ↘ AWS WAF (Security Layer)  
+```
+
+---
+
+## **🔧 Local Setup (MariaDB)**
 ### **1️⃣ Install Required Software**
-- **Apache** (`httpd` for Linux)
-- **PHP** (`php`, `php-mysqli`, `php-curl`)
-- **MariaDB/MySQL**
+- **Apache, PHP, MariaDB**
+  ```bash
+  sudo yum install -y httpd mariadb-server php php-mysqli unzip
+  sudo systemctl start httpd
+  sudo systemctl enable httpd
+  ```
   
 ### **2️⃣ Setup Local Database**
 1. Start MariaDB:
@@ -66,129 +88,116 @@ A simple **PHP-based cafe ordering system** that allows customers to place order
    mysql -u root -p wings < DATABASE/wings.sql
    ```
 
-### **3️⃣ Configure Local `connection.php`**
-Modify `connection.php` with **local database credentials**:
+### **3️⃣ Configure `connection.php` for Local Development**
 ```php
 $conn = new mysqli("localhost", "root", "password", "wings");
 ```
 
 ### **4️⃣ Start Apache Server**
 ```bash
-sudo systemctl start httpd
+sudo systemctl restart httpd
 ```
 Then, access the site at **http://localhost/nana-cafe/**.
 
 ---
 
-## **🌐 Deploy to AWS Cloud (EC2 + RDS + S3)**
+## **🚀 Deploy to AWS Cloud (EC2 + RDS + S3)**
 
 ### **1️⃣ Launch EC2 Instance**
-- **Amazon Linux 2** or **Ubuntu**
-- Install LAMP stack:
+- **Amazon Linux 2** (t2.micro, Free Tier)
+- Install software:
   ```bash
-  sudo yum install -y httpd mariadb-server php php-mysqli php-curl unzip
-  sudo systemctl enable httpd && sudo systemctl start httpd
+  sudo yum update -y
+  sudo yum install -y httpd php php-mysqli unzip aws-cli
+  sudo systemctl start httpd
+  sudo systemctl enable httpd
   ```
 
-### **2️⃣ Setup AWS RDS (MySQL)**
-1. Create an **RDS MySQL instance** in AWS.
-2. Find the **RDS endpoint** in the AWS console.
-3. Modify `connection.php`:
+### **2️⃣ Set Up AWS RDS MySQL**
+1. Create **RDS MySQL instance**.
+2. Configure **Security Group** (allow EC2 connections).
+3. Retrieve **RDS endpoint**.
+4. Modify `connection.php`:
    ```php
    require 'get-parameters.php';
    $conn = new mysqli($ep, $un, $pw, $db);
    ```
 
-### **3️⃣ Store Credentials in AWS SSM Parameter Store**
-1. Open **AWS Systems Manager > Parameter Store**.
-2. Create parameters:
-   ```
-   /onlinecafe/endpoint   = <your-rds-endpoint>
-   /onlinecafe/username   = <your-db-username>
-   /onlinecafe/password   = <your-db-password>
-   /onlinecafe/database   = wings
-   ```
-3. Verify parameters:
-   ```bash
-   aws ssm get-parameters-by-path --path "/onlinecafe/" --with-decryption
-   ```
+### **3️⃣ Store Credentials in AWS Systems Manager (SSM)**
+```bash
+aws ssm put-parameter --name "/onlinecafe/endpoint" --value "your-rds-endpoint" --type "String"
+aws ssm put-parameter --name "/onlinecafe/username" --value "admin" --type "String"
+aws ssm put-parameter --name "/onlinecafe/password" --value "your-db-password" --type "SecureString"
+aws ssm put-parameter --name "/onlinecafe/database" --value "wings" --type "String"
+```
 
 ### **4️⃣ Configure S3 for Image Storage**
-1. **Create an S3 Bucket** (`onlinecafe-bucket`).
-2. **Make objects public** (optional for easy access).
-3. **Update `connection.php` to use S3 URLs**.
-
-### **5️⃣ Upload Project Files to EC2**
-Transfer your project to EC2:
-```bash
-scp -i key.pem -r nana-cafe/ ec2-user@<EC2-PUBLIC-IP>:/var/www/html/
-```
-
-### **6️⃣ Configure Apache Virtual Host**
-Edit `/etc/httpd/conf/httpd.conf`:
-```apache
-<VirtualHost *:80>
-    DocumentRoot "/var/www/html"
-    <Directory "/var/www/html">
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
-```
-Restart Apache:
-```bash
-sudo systemctl restart httpd
-```
-
----
-
-## **✅ Testing & Verification**
-### **1️⃣ Check Database Connection**
-```php
-<?php
-require 'connection.php';
-if ($conn) {
-    echo "Connected to AWS RDS!";
-} else {
-    echo "Connection failed!";
-}
-?>
-```
-Run it inside EC2:
-```bash
-php test_db.php
-```
-
-### **2️⃣ Upload and Access Images from S3**
-Modify product images to use S3:
 ```php
 <img src="https://onlinecafe-bucket.s3.amazonaws.com/images/burger.jpg" />
 ```
 
+### **5️⃣ Upload Files to EC2**
+```bash
+scp -i key.pem -r nana-cafe/ ec2-user@<EC2-PUBLIC-IP>:/var/www/html/
+```
+
+### **6️⃣ Configure Auto Scaling & Load Balancer**
+- Created **Application Load Balancer**.
+- Configured **Auto Scaling Group** for 1-4 instances.
+- **User Data for Auto Scaling Instances**:
+```bash
+#!/bin/bash
+yum update -y
+yum install -y httpd php php-mysqli unzip aws-cli
+systemctl start httpd
+systemctl enable httpd
+aws s3 sync s3://your-bucket-name /var/www/html/
+(crontab -l 2>/dev/null; echo "*/5 * * * * aws s3 sync s3://your-bucket-name /var/www/html/ --delete") | crontab -
+```
+
+### **7️⃣ Configure CloudWatch & Logs**
+```bash
+aws logs create-log-group --log-group-name "/aws/ec2/nana-cafe"
+aws logs create-log-stream --log-group-name "/aws/ec2/nana-cafe" --log-stream-name "app-log"
+```
+
 ---
 
-## **🔒 Security Best Practices**
-- **DO NOT store AWS credentials in `connection.php`**. Use **AWS SSM Parameter Store** instead.
-- **Enable RDS Security Groups** to allow access only from EC2.
-- **Use IAM roles** instead of hardcoded credentials.
-- **Block public access to S3** (unless needed for image hosting).
+## **🛠 Code Modifications**
+### **🔹 `connection.php`**
+```php
+require 'vendor/autoload.php';
+use Aws\Ssm\SsmClient;
+$ssm = new SsmClient(['version' => 'latest', 'region' => 'us-east-1']);
+$params = $ssm->getParametersByPath(['Path' => '/nana-cafe/', 'WithDecryption' => true]);
+foreach ($params['Parameters'] as $p) {
+    $values[str_replace('/nana-cafe/', '', $p['Name'])] = $p['Value'];
+}
+$conn = new mysqli($values['endpoint'], $values['username'], $values['password'], $values['database']);
+```
+
+### **🔹 `style.css` (Updated for S3)**
+```css
+body {
+    background: url('https://onlinecafe-bucket.s3.amazonaws.com/background.jpg') no-repeat center top;
+}
+```
 
 ---
 
-## **📌 Common Issues & Troubleshooting**
-| Issue | Solution |
-|--------|---------|
-| `Access denied for user to MySQL RDS` | Check **RDS Security Group** allows **EC2 IP** |
-| `Could not connect to SSM Parameter Store` | Ensure **IAM role has `ssm:GetParameters`** |
-| `S3 images not loading` | Make sure **bucket policy allows public read** |
-| `403 Forbidden` on Apache | Ensure `/var/www/html` has correct **permissions (`chmod -R 755 /var/www/html`)** |
+## **🔒 Security Enhancements**
+✅ **Removed Hardcoded DB Credentials**  
+✅ **AWS WAF to Prevent Attacks**  
+✅ **RDS Security Group (Restricted Access)**  
 
 ---
 
 ## **📜 License**
-This project is open-source and can be used for educational purposes. **Please give credit if used commercially**.
+This project is **open-source** and available for educational purposes.
 
 ---
 
 ## **📞 Need Help?**
-For any issues, feel free to **create an issue** or **contact me**.
+If you encounter any issues, feel free to **create an issue** in this repository.
+
+---

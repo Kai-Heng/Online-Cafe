@@ -31,7 +31,7 @@ include('connection.php');
                 $id = $row3['product_id'];
 
                 echo '<tr>';
-                echo '<td width="80"><img src="images/bgr/' . $row3['product_photo'] . '" /></td>';
+                echo '<td width="80"><img src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/bgr/' . $row3['product_photo'] . '" /></td>';
                 echo '<td width="200"><span class="style1">' . $row3['name'] . '</span></td>';
                 echo '</tr>';
                 echo '<tr>';
@@ -63,7 +63,7 @@ include('connection.php');
                 echo '<input type="hidden" name="price" value="' . $row3['price'] . '">';
                 echo '<input type="hidden" name="name" value="' . $row3['name'] . '">';
                 echo '<td><input type="text" size="5" name="quantity"></td>';
-                echo '<td><input name="butadd" type="image" value="' . $row3['product_id'] . '" src="images/button.png" /></td>';
+                echo '<td><input name="butadd" type="image" value="' . $row3['product_id'] . '" src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/button.png" /></td>';
                 echo '</tr>';
             }
         }

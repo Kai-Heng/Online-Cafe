@@ -89,8 +89,8 @@ a:active {
   <div style="height:40px; margin-bottom:10px;">
     <div style="float:left; margin-left:10px; margin-top:10px; color:black"><strong>Welcome</strong><?php echo $_SESSION['email'];?></div>
   </div>
-  <div align="center"><a href="vieworders.php"><img src="images/84.png" border="0" style="padding:5px;" title="view all orders" /></a><br />
-    <a href="addproduct.php"><img src="images/78.png" border="0" style="padding:5px;" title="Add products" /></a></div>
+  <div align="center"><a href="vieworders.php"><img src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/84.png" border="0" style="padding:5px;" title="view all orders" /></a><br />
+    <a href="addproduct.php"><img src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/78.png" border="0" style="padding:5px;" title="Add products" /></a></div>
 </div>
 
 </div>

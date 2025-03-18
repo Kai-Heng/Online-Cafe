@@ -41,6 +41,6 @@
  ?>
  
  <a rel="facebox" href="order.php">
-     <img src="images/28.png" width="75px" height="75px" />
+     <img src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/28.png" width="75px" height="75px" />
  </a>
 

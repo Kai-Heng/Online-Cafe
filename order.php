@@ -101,7 +101,7 @@ include('connection.php');
                     $row3 = mysqli_fetch_assoc($result3);
                     echo '<div class="box"> 
                             <a rel="facebox" href="portal.php?id=' . $row3["product_id"] . '">
-                                <img src="images/bgr/' . $row3['product_photo'] . '" width="75px" height="75px" />
+                                <img src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/bgr/' . $row3['product_photo'] . '" width="75px" height="75px" />
                             </a>';
                     echo '<div class="textbox"> ' . $row3['name'] . ' </div>';
                     echo '</div>';

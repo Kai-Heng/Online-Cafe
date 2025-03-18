@@ -47,7 +47,7 @@ include('get-parameters.php');
 
     <div id="content">
         <div id="content_left">
-            <img src="images/bgr.jpg" width="734" height="300" style="margin-left:-10px;">
+            <img src="https://tp070587bucket.s3.us-east-1.amazonaws.com/images/bgr.jpg" width="734" height="300" style="margin-left:-10px;">
         </div>
         <div id="card"></div>
     </div>

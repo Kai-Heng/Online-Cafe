@@ -20,7 +20,7 @@ body {
 
 	color: #fff;
 
-	background: url(images/body1.jpg) repeat-x  center top;
+	background: url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/body1.jpg) repeat-x  center top;
 
 	width: 100%;
 
@@ -48,7 +48,7 @@ h2 {
 
 	margin: auto;
 	
-	background: url(images/container_bg.jpg) repeat-y  center top;
+	background: url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/container_bg.jpg) repeat-y  center top;
 
 }
 
@@ -58,7 +58,7 @@ h2 {
 
 	height: 200px;
 
-	background: url(images/header.gif) no-repeat;
+	background: url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/header.gif) no-repeat;
         background-size:cover;
 
 
@@ -70,7 +70,7 @@ h2 {
 	float: left;
 	width: 747px;
 	height: 30px;
-	background: #5a5a5a url(images/menu_bg.jpg) repeat-x;
+	background: #5a5a5a url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/menu_bg.jpg) repeat-x;
 	margin-left: 25px;
 }
 
@@ -111,7 +111,7 @@ h2 {
 #menu_bg {
 	width: 797px;
 	height: 30px;
-	background: url(images/menu_back.jpg) no-repeat;
+	background: url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/menu_back.jpg) no-repeat;
 
 }
 /* end of menu */
@@ -119,23 +119,23 @@ h2 {
 #header {
 	width: 798px;
 	height: 316px;
-	background:url(images/headerblack.png) no-repeat;
+	background:url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/headerblack.png) no-repeat;
 }
 
 #content {
 width: 797px;
 	height: 312px;
-	background:url(images/content_bg.jpg) no-repeat;
+	background:url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/content_bg.jpg) no-repeat;
 
 }
 
 #content_bg {
 	width: 797px;
 	height: 312px;
-	background:url(images/content_bg_2.jpg) no-repeat;
+	background:url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/content_bg_2.jpg) no-repeat;
 }
 .con{
-background-image:url(images/content_bg_2.jpg);
+background-image:url(https://tp070587bucket.s3.us-east-1.amazonaws.com/images/content_bg_2.jpg);
 background-repeat:repeat-y;
 }
 
@@ -293,7 +293,7 @@ text-align:center;
 #container_end {
 	width: 797px;
 	height: 60px;
-	background:url(images/container_end.jpg) no-repeat;
+	background:url(https://tp070587bucket.s3.us-east-1.amazonaws.com/container_end.jpg) no-repeat;
 }
 
 #footer {

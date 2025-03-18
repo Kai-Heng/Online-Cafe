@@ -12,9 +12,9 @@ use Aws\Exception\AwsException;
 $region = 'us-east-1';
 
 // AWS Temporary Credentials
-$aws_access_key = '';
-$aws_secret_key = '';
-$aws_session_token = 'IQoJb3JpZ2luX2VjEJb//////////wEaCXVzLXdlc3QtMiJHMEUCIEpUKBOG7u+NuqFwvGGbmo8tk5AFLs/fTSzNz4qbJmPqAiEAwflrqRw2s2yy5HuKaxCmmuJZseSgBplg4r2Rjk3WwSwqsgII3///////////ARABGgwxNjA1NDc2MDk4NjkiDHSkSlA7ne3hk6jLsiqGAu3pfvM8Z/Rh92sc0Ooz5J2TyGcQ4W+jyTlVJVV9fLUjha6zmfjBryc9n9wU09c3kOvc7A1f8WCA/5qOWeFuV0m83TRNHA6GyksA+Ziha7BajpYlOycCQJ3y2s/hH6/MXtjPdaUgx6tx7lMosm/WuvcyOa+Yb+uCTWaCEIwGaueCL14zUHIW3T0sznyo4i5nQM5P9q7hAGckgeLKLUOOggNRDBpdXUrgxPJdxv5R3x8Fqydx5/LlnjgKguruaGs9/jMTx6wJznboxFdnuJokzZTzLY/ofWLjyzPdn2BrvNM85v0jYcd/WkDtHoSRhHc6TGbq4ortlTmskOttUPu1wG6NHjOig9IwsajNvgY6nQGdoKUBBq6LI5SvKqa7SmK+BeJ7Jdk3SVh3POZtutinaBXkdNvm1aaLAgr4KVfdyrvBmdcuna8CJQdZoB0W4p/6kenb5GOFxAAXXhwOXiBAMHLR44C14MZLg5v13Ghl0Hgam4pojD6mBulokNQYunCg/3+k5AuMovbx35qf+iGDkp1u9hnjECH0+hIDjC8K1J4CqrB9oPfW3MfYuKYp';
+$aws_access_key = 'YOUR_ACCESS_KEY';
+$aws_secret_key = 'YOUR_SECRET_KEY';
+$aws_session_token = 'YOUR_SESSION_TOKEN';
 
 // Initialize AWS SSM Client
 $ssm_client = new SsmClient([
